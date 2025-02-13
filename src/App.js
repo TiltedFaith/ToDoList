@@ -1,15 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import './styles/App.css';
-import CustomDropdown from './components/dropdown.js';
+import "./styles/App.css";
+import CustomDropdown from "./components/dropdown.js";
 import React, { useEffect, useState } from "react";
 
 function App() {
   const getInitialData = () => {
-    const savedData = localStorage.getItem("data");
-    return savedData ? JSON.parse(savedData) : [
-      { task: "Don't do this", status: "Not Started", owner: "Me", date: "Today" },
-      { task: "Do that", status: "Not Started", owner: "You", date: "Tomorrow" },
-      { task: "Do This", status: "Not Started", owner: "Us", date: "Yesterday" }
+    const savedData = JSON.parse(localStorage.getItem("data"));
+    return savedData || [
+      { id: 1, task: "Don't do this", status: "Not Started", owner: "Me", date: "Today" },
+      { id: 2, task: "Do that", status: "Not Started", owner: "You", date: "Tomorrow" },
+      { id: 3, task: "Do This", status: "Not Started", owner: "Us", date: "Yesterday" }
     ];
   };
 
@@ -26,15 +26,18 @@ function App() {
   };
 
   const addTask = () => {
-    setData([...data, { task: "", status: "Not Started", owner: "", date: "" }]);
+    setData([...data, {
+      id: data.length > 0 ? data[data.length - 1].id + 1 : 1, 
+      task: "",
+      status: "Not Started",
+      owner: "",
+      date: "" }]);
   };
+
   const deleteTask = (index) => {
     setData(data.filter((_, i) => i !== index));
   };
 
-  
-
-  
   return (
     <div>
       <table className="table table-bordered table-striped">
@@ -45,22 +48,24 @@ function App() {
             <th>Owner</th>
             <th>Due Date</th>
             <th>Actions</th>
-          </tr> 
+          </tr>
         </thead>
         <tbody>
-          {data.map((todo, index) => (
-            <tr key={index}>
-              <td>{todo.todo}</td>
+          {data.map((task, index) => (
+            <tr key={task.id}>
+              <td>{task.task}</td>
               <td>
-                <CustomDropdown 
-                    setSelectedStatus={todo.status}
-                    onChange={(newStatus) => updateStatus(index, newStatus) }/>
+                <CustomDropdown
+                  id={task.id}
+                  initialStatus={task.status}
+                  onChange={(newStatus) => updateStatus(index, newStatus)}
+                />
               </td>
-              <td>{todo.owner}</td>
-              <td>{todo.date}</td>
+              <td>{task.owner}</td>
+              <td>{task.date}</td>
               <td>
                 <button onClick={() => deleteTask(index)} className="btn btn-danger">
-                    Delete
+                  Delete
                 </button>
               </td>
             </tr>
