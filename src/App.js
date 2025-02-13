@@ -1,37 +1,73 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import './styles/App.css';
 import CustomDropdown from './components/dropdown.js';
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const data = [
-    { task: "Don't do this", status: 25, city: "Me", date: "Today"},
-    { task: "Do that", status: 30, city: "You", date: "Tomorrow" },
-    { task: "Do This", status: 27, city: "Us", date: "Yesterday" }
-  ];
+  const getInitialData = () => {
+    const savedData = localStorage.getItem("data");
+    return savedData ? JSON.parse(savedData) : [
+      { task: "Don't do this", status: "Not Started", owner: "Me", date: "Today" },
+      { task: "Do that", status: "Not Started", owner: "You", date: "Tomorrow" },
+      { task: "Do This", status: "Not Started", owner: "Us", date: "Yesterday" }
+    ];
+  };
+
+  const [data, setData] = useState(getInitialData);
+
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(data));
+  }, [data]);
+
+  const updateStatus = (index, newStatus) => {
+    const updatedData = [...data];
+    updatedData[index].status = newStatus;
+    setData(updatedData);
+  };
+
+  const addTask = () => {
+    setData([...data, { task: "", status: "Not Started", owner: "", date: "" }]);
+  };
+  const deleteTask = (index) => {
+    setData(data.filter((_, i) => i !== index));
+  };
+
+  
+
+  
   return (
     <div>
-      <button onclick="myFunction()">Add Task</button>
       <table className="table table-bordered table-striped">
-      <thead className="table-dark">
-        <tr>
-          <th>Task</th>
-          <th>Status</th>
-          <th>Owner</th>
-          <th>Due Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((person, index) => (
-          <tr key={index}>
-            <td>{person.task}</td>
-            <td>{<CustomDropdown />}</td>
-            <td>{person.city}</td>
-            <td>{person.date}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        <thead className="table-dark">
+          <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+          </tr> 
+        </thead>
+        <tbody>
+          {data.map((todo, index) => (
+            <tr key={index}>
+              <td>{todo.todo}</td>
+              <td>
+                <CustomDropdown 
+                    setSelectedStatus={todo.status}
+                    onChange={(newStatus) => updateStatus(index, newStatus) }/>
+              </td>
+              <td>{todo.owner}</td>
+              <td>{todo.date}</td>
+              <td>
+                <button onClick={() => deleteTask(index)} className="btn btn-danger">
+                    Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={addTask} className="btn btn-primary mt-2">Add Task</button>
     </div>
   );
 }
