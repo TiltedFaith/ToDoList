@@ -4,20 +4,20 @@ import CustomDropdown from "./components/dropdown.js";
 import React, { useEffect, useState } from "react";
 
 function App() {
+  const defaultTasks=[];
   const getInitialData = () => {
     const savedData = JSON.parse(localStorage.getItem("data"));
-    return savedData || [
-      { id: 1, task: "Don't do this", status: "Not Started", owner: "Me", date: "Today" },
-      { id: 2, task: "Do that", status: "Not Started", owner: "You", date: "Tomorrow" },
-      { id: 3, task: "Do This", status: "Not Started", owner: "Us", date: "Yesterday" }
-    ];
+    const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3; // Default max id
+    return { tasks: savedData || [...defaultTasks], lastId: savedLastId };
   };
 
-  const [data, setData] = useState(getInitialData);
+  const [data, setData] = useState(getInitialData().tasks);
+  const [lastId, setLastId] = useState(getInitialData().lastId);
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
-  }, [data]);
+    localStorage.setItem("lastId", JSON.stringify(lastId));
+  }, [data, lastId]);
 
   const updateStatus = (index, newStatus) => {
     const updatedData = [...data];
@@ -26,24 +26,21 @@ function App() {
   };
 
   const addTask = () => {
-    setData([...data, {
-      id: data.length > 0 ? data[data.length - 1].id + 1 : 1, 
-      task: "",
-      status: "Not Started",
-      owner: "",
-      date: "" }]);
-  };
+  const newId = lastId + 1;
+  setData([...data, { id: newId, task: "", status: "Not Started", owner: "", date: "" }]);
+  setLastId(newId);
+};
 
   const deleteTask = (index) => {
     setData(data.filter((_, i) => i !== index));
   };
 
   //  TODO: Complete the remaining functionalities
-  //  []: Fix status deletion retaining their previous status (eg. from 0, for every 2nd task added is Blocked)
-  //  []: Editable Task name
-  //  []: Editable Owner cell
-  //  []: Editable Due Date
-  //  []: Better Design
+  //  [/]1: Fix status deletion retaining their previous status (eg. from 0, for every 2nd task added is Blocked)
+  //  []2: Editable Task name
+  //  []3: Editable Owner cell
+  //  []4: Editable Due Date
+  //  []5: Better Design
   
   return (
     <div>
