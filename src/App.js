@@ -39,6 +39,7 @@ function App() {
   };
 
   //  TODO: Complete the remaining functionalities
+  //  []: Fix status deletion retaining their previous status (eg. from 0, for every 2nd task added is Blocked)
   //  []: Editable Task name
   //  []: Editable Owner cell
   //  []: Editable Due Date
