@@ -38,6 +38,12 @@ function App() {
     setData(data.filter((_, i) => i !== index));
   };
 
+  //  TODO: Complete the remaining functionalities
+  //  []: Editable Task name
+  //  []: Editable Owner cell
+  //  []: Editable Due Date
+  //  []: Better Design
+  
   return (
     <div>
       <table className="table table-bordered table-striped">
