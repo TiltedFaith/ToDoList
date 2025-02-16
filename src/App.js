@@ -4,7 +4,7 @@ import CustomDropdown from "./components/dropdown.js";
 import React, { useEffect, useState } from "react";
 
 function App() {
-  const defaultTasks=[];
+  const defaultTasks = [];
   const getInitialData = () => {
     const savedData = JSON.parse(localStorage.getItem("data"));
     const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3; // Default max id
@@ -25,23 +25,22 @@ function App() {
     setData(updatedData);
   };
 
+  const updateDate = (index, newDate) => {
+    const updatedData = [...data];
+    updatedData[index].date = newDate;
+    setData(updatedData);
+  };
+
   const addTask = () => {
-  const newId = lastId + 1;
-  setData([...data, { id: newId, task: "", status: "Not Started", owner: "", date: "" }]);
-  setLastId(newId);
-};
+    const newId = lastId + 1;
+    setData([...data, { id: newId, task: "", status: "Not Started", owner: "", date: "" }]);
+    setLastId(newId);
+  };
 
   const deleteTask = (index) => {
     setData(data.filter((_, i) => i !== index));
   };
 
-  //  TODO: Complete the remaining functionalities
-  //  [/]1: Fix status deletion retaining their previous status (eg. from 0, for every 2nd task added is Blocked)
-  //  []2: Editable Task name
-  //  []3: Editable Owner cell
-  //  []4: Editable Due Date
-  //  []5: Better Design
-  
   return (
     <div>
       <table className="table table-bordered table-striped">
@@ -66,7 +65,14 @@ function App() {
                 />
               </td>
               <td>{task.owner}</td>
-              <td>{task.date}</td>
+              <td>
+                <input
+                  type="date"
+                  value={task.date}
+                  onChange={(e) => updateDate(index, e.target.value)}
+                  className="form-control"
+                />
+              </td>
               <td>
                 <button onClick={() => deleteTask(index)} className="btn btn-danger">
                   Delete
@@ -76,7 +82,9 @@ function App() {
           ))}
         </tbody>
       </table>
-      <button onClick={addTask} className="btn btn-primary mt-2">Add Task</button>
+      <button onClick={addTask} className="btn btn-primary mt-2">
+        Add Task
+      </button>
     </div>
   );
 }
