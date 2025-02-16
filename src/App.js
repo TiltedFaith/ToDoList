@@ -3,17 +3,19 @@ import "./styles/App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import CustomDropdown from "./components/dropdown.js";
 import React, { useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
 
 function App() {
   const defaultTasks = [];
   const getInitialData = () => {
     const savedData = JSON.parse(localStorage.getItem("data"));
-    const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3; 
+    const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3;
     return { tasks: savedData || [...defaultTasks], lastId: savedLastId };
   };
 
   const [data, setData] = useState(getInitialData().tasks);
   const [lastId, setLastId] = useState(getInitialData().lastId);
+  const [activeTab, setActiveTab] = useState("All"); // Default tab
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
@@ -40,6 +42,8 @@ function App() {
     setData(data.filter((_, i) => i !== index));
   };
 
+  const filteredTasks = activeTab === "All" ? data : data.filter(task => task.status === activeTab);
+
   return (
     <div>
       <div className="d-flex align-items-center justify-content-center">
@@ -48,8 +52,23 @@ function App() {
         }} />
         <h2 className="mt-2">LexMeet</h2>
       </div>      
+
       <div className="container mt-4">
-      <h1 className="text-center mb-3">To-Do List</h1>
+        <h1 className="text-center mb-3">To-Do List</h1>
+
+        <Nav variant="tabs" className="">
+          {["All", "Not Started", "Blocked", "In Progress", "Completed"].map((status) => (
+            <Nav.Item key={status}>
+              <Nav.Link 
+                active={activeTab === status} 
+                onClick={() => setActiveTab(status)}
+              >
+                {status}
+              </Nav.Link>
+            </Nav.Item>
+          ))}
+        </Nav>
+
         <table className="table table-bordered">
           <thead className="table-dark">
             <tr>
@@ -61,7 +80,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {data.map((task, index) => (
+            {filteredTasks.map((task, index) => (
               <tr key={task.id}>
                 <td>
                   <input
@@ -72,12 +91,12 @@ function App() {
                   />
                 </td>
                 <td>
-                <CustomDropdown
-                  id={task.id}
-                  initialStatus={task.status}
-                  onChange={(newStatus) => updateStatus(index, newStatus)}
-                  className="status-dropdown"
-                />
+                  <CustomDropdown
+                    id={task.id}
+                    initialStatus={task.status}
+                    onChange={(newStatus) => updateStatus(index, newStatus)}
+                    className="status-dropdown"
+                  />
                 </td>
                 <td>
                   <input
@@ -88,12 +107,12 @@ function App() {
                   />
                 </td>
                 <td>
-                <input
-                  type="date"
-                  value={task.date}
-                  onChange={(e) => updateTaskField(index, "date", e.target.value)}
-                  className="form-control date-picker date-picker-input"
-                />
+                  <input
+                    type="date"
+                    value={task.date}
+                    onChange={(e) => updateTaskField(index, "date", e.target.value)}
+                    className="form-control date-picker date-picker-input"
+                  />
                 </td>
                 <td>
                   <button onClick={() => deleteTask(index)} className="btn btn-danger">
@@ -104,6 +123,7 @@ function App() {
             ))}
           </tbody>
         </table>
+
         <button onClick={addTask} className="btn btn-primary mt-2">
           + Add Task
         </button>
