@@ -83,7 +83,7 @@ function App() {
                 type="date"
                 value={task.date}
                 onChange={(e) => updateTaskField(index, "date", e.target.value)}
-                className="form-control date-picker"
+                className="form-control date-picker date-picker-input"
               />
               </td>
               <td>

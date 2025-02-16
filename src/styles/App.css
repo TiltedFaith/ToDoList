@@ -27,12 +27,14 @@ body {
 .table th {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
+  font-size: 1.25pc;
 }
 
 /* Style table data */
 .table td {
   font-family: "Lato", serif;
   font-weight: 500;
+  font-size: 1pc;
 }
 
 /* General styling for all input-like elements */
@@ -45,6 +47,7 @@ body {
   padding: 5px;
   font-family: "Lato", serif;
   font-weight: 500;
+  font-size: 1pc;
 }
 
 /* Ensure focus does not add extra styles */
@@ -55,6 +58,7 @@ body {
   border-radius: 3px;
   font-family: "Lato", serif;
   font-weight: 500;
+  font-size: 1.05pc;
 }
 
 /* Dropdown specific styling */
@@ -69,13 +73,34 @@ body {
   cursor: pointer;
 }
 
+/* Ensure the input field of the date picker uses Lato */
+.date-picker-input {
+  font-family: "Lato", sans-serif !important;
+  font-weight: 500;
+  font-size: 1pc;
+}
+
+/* Target the calendar dropdown */
+.react-datepicker {
+  font-family: "Lato", sans-serif !important;
+  font-size: 1pc;
+}
+
+/* Ensure date selection inside the calendar uses Lato */
+.react-datepicker__day,
+.react-datepicker__header,
+.react-datepicker__month {
+  font-family: "Lato", sans-serif !important;
+  font-size: 1pc;
+}
+
 .transparent-dropdown .dropdown-toggle {
   background: transparent !important;
   border: none !important;
   color: inherit !important;
   box-shadow: none !important;
   padding: 5px;
-  font-size: 14px; /* Smaller font */
+  font-size: 1pc; /* Smaller font */
 }
 
 .transparent-dropdown .dropdown-menu {
@@ -85,6 +110,7 @@ body {
   padding: 5px; /* Reduced padding */
   width: 140px !important; /* Set a smaller width */
   border-radius: 6px; /* Slightly rounded corners */
+  
 }
 
 .transparent-dropdown .dropdown-item {
@@ -94,7 +120,7 @@ body {
   border-radius: 15px;
   margin: 3px 0;
   padding: 6px 10px; /* Smaller padding */
-  font-size: 13px; /* Smaller font size */
+  font-size: 1pc; /* Smaller font size */
   transition: background 0.3s ease-in-out;
 }
 
@@ -119,17 +145,22 @@ body {
 .btn-primary {
   background-color: #5E1B89;
   border: none;
+  font-size: 1pc;
+
 }
 
 .btn-primary:hover {
   background-color: #5E1B89;
+  font-size: 1pc;
 }
 
 .btn-danger {
   background-color: #f4512c;
   border: none;
+  font-size: 1pc;
 }
 
 .btn-danger:hover {
   background-color: #f4512c;
+  font-size: 1pc;
 }
