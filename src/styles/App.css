@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.task-input {
+  border: none; /* Remove border */
+  background: transparent; /* Blend with background */
+  color: inherit; /* Match table text */
+  width: 100%; /* Fit the cell width */
+  padding: 5px; /* Padding for better UX */
+}
+
+.task-input:focus {
+  outline: none; /* Remove focus outline */
+  background: rgba(255, 255, 255, 0.2); /* Subtle highlight on focus */
+  border-radius: 3px;
+}
+

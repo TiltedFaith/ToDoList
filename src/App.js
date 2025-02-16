@@ -40,7 +40,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <table className="table table-bordered table-striped">
         <thead className="table-dark">
           <tr>
@@ -59,7 +59,7 @@ function App() {
                   type="text"
                   value={task.task}
                   onChange={(e) => updateTaskField(index, "task", e.target.value)}
-                  className="form-control"
+                  className="form-control task-input"
                 />
               </td>
               <td>
@@ -74,7 +74,7 @@ function App() {
                   type="text"
                   value={task.owner}
                   onChange={(e) => updateTaskField(index, "owner", e.target.value)}
-                  className="form-control"
+                  className="form-control task-input"
                 />
               </td>
               <td>
