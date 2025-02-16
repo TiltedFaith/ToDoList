@@ -1,0 +1,10 @@
+/* Apply Lato to the dropdown title */
+.custom-dropdown .dropdown-toggle {
+  font-family: "Lato", sans-serif !important;
+  font-weight: 500;
+}
+/* Apply Lato to the dropdown items */
+.custom-dropdown .dropdown-menu .dropdown-item {
+    font-family: "Lato", sans-serif !important;
+    font-weight: 500;
+  }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import "../styles/dropdown.css";
+
 
 const CustomDropdown = ({ id, initialStatus, onChange }) => {
   const [selectedOption, setSelectedOption] = useState(initialStatus || "Not Started");
