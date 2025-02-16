@@ -1,14 +1,110 @@
-.task-input {
-  border: none; /* Remove border */
-  background: transparent; /* Blend with background */
-  color: inherit; /* Match table text */
-  width: 100%; /* Fit the cell width */
-  padding: 5px; /* Padding for better UX */
+/* Define a gradient background */
+body {
+  --gradient-start: #5E1B89; /* Customize this */
+  --gradient-end: #f4512c; /* Customize this */
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.task-input:focus {
-  outline: none; /* Remove focus outline */
-  background: rgba(255, 255, 255, 0.2); /* Subtle highlight on focus */
+/* Container with padding for a clean layout */
+.container {
+  background: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the table */
+.table {
+  background: transparent;
+}
+
+/* General styling for all input-like elements */
+.task-input,
+.date-picker {
+  border: none;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  padding: 5px;
+}
+
+/* Ensure focus does not add extra styles */
+.task-input:focus,
+.date-picker:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
 }
 
+/* Dropdown specific styling */
+.status-dropdown .dropdown-toggle {
+  background: transparent !important;
+  border: none !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+.date-picker {
+  cursor: pointer;
+}
+
+.transparent-dropdown .dropdown-toggle {
+  background: transparent !important;
+  border: none !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  padding: 5px;
+  font-size: 14px; /* Smaller font */
+}
+
+.transparent-dropdown .dropdown-menu {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: none !important;
+  backdrop-filter: blur(8px); /* Optional: Adds a blur effect */
+  padding: 5px; /* Reduced padding */
+  width: 140px !important; /* Set a smaller width */
+  border-radius: 6px; /* Slightly rounded corners */
+}
+
+.transparent-dropdown .dropdown-item {
+  color: white !important;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 15px;
+  margin: 3px 0;
+  padding: 6px 10px; /* Smaller padding */
+  font-size: 13px; /* Smaller font size */
+  transition: background 0.3s ease-in-out;
+}
+
+.status-not-started { background-color: blue !important; }
+.status-blocked { background-color: red !important; }
+.status-in-progress { background-color: yellow !important; color: black !important; }
+.status-completed { background-color: green !important; }
+
+.transparent-dropdown .dropdown-item:hover {
+  filter: brightness(1.2);
+}
+
+/* Ensure buttons stand out */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+}

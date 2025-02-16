@@ -63,11 +63,12 @@ function App() {
                 />
               </td>
               <td>
-                <CustomDropdown
-                  id={task.id}
-                  initialStatus={task.status}
-                  onChange={(newStatus) => updateStatus(index, newStatus)}
-                />
+              <CustomDropdown
+                id={task.id}
+                initialStatus={task.status}
+                onChange={(newStatus) => updateStatus(index, newStatus)}
+                className="status-dropdown"
+              />
               </td>
               <td>
                 <input
@@ -78,12 +79,12 @@ function App() {
                 />
               </td>
               <td>
-                <input
-                  type="date"
-                  value={task.date}
-                  onChange={(e) => updateTaskField(index, "date", e.target.value)}
-                  className="form-control"
-                />
+              <input
+                type="date"
+                value={task.date}
+                onChange={(e) => updateTaskField(index, "date", e.target.value)}
+                className="form-control date-picker"
+              />
               </td>
               <td>
                 <button onClick={() => deleteTask(index)} className="btn btn-danger">
