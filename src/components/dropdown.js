@@ -7,7 +7,7 @@ const CustomDropdown = ({ id, initialStatus, onChange }) => {
   const [selectedOption, setSelectedOption] = useState(initialStatus || "Not Started");
 
   useEffect(() => {
-    // Load individual status from localStorage
+    
     const savedStatus = localStorage.getItem(`status_${id}`);
     if (savedStatus) {
       setSelectedOption(savedStatus);
@@ -16,7 +16,7 @@ const CustomDropdown = ({ id, initialStatus, onChange }) => {
 
   const handleSelect = (status) => {
     setSelectedOption(status);
-    localStorage.setItem(`status_${id}`, status); // Save status with unique key
+    localStorage.setItem(`status_${id}`, status); 
     onChange(status);
   };
 

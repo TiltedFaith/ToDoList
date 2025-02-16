@@ -8,7 +8,7 @@ function App() {
   const defaultTasks = [];
   const getInitialData = () => {
     const savedData = JSON.parse(localStorage.getItem("data"));
-    const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3; // Default max id
+    const savedLastId = JSON.parse(localStorage.getItem("lastId")) || 3; 
     return { tasks: savedData || [...defaultTasks], lastId: savedLastId };
   };
 
