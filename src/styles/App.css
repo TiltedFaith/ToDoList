@@ -1,7 +1,7 @@
-/* Define a gradient background */
+
 body {
-  --gradient-start: #9d71bc; /* Customize this */
-  --gradient-end: #ff7f4d; /* Customize this */
+  --gradient-start: #9d71bc;
+  --gradient-end: #ff7f4d;
   background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
   min-height: 100vh;
   display: flex;
@@ -24,9 +24,9 @@ h2{
   font-size: 4pc;
 }
 
-/* Container with padding for a clean layout */
+
 .container {
-  background: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  background: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -35,10 +35,10 @@ h2{
 .table {
   background: transparent !important;
   width: 100%;
-  min-width: 600px; /* Adjust as needed */
+  min-width: 600px;
   border-radius: 8px;
   text-align: center;
-  table-layout: fixed; /* Ensures uniform column sizes */
+  table-layout: fixed;
 }
 
 .table th:nth-child(2),
@@ -65,18 +65,18 @@ h2{
   white-space: nowrap;
 }
 
-/* Style the table headers */
+
 .table th {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
   font-size: 1.25pc;
   background: #9d71bc;
-  border-collapse: separate; /* Needed for row-only borders */
-  border-spacing: 0px 1px; /* Space between rows */
+  border-collapse: separate;
+  border-spacing: 0px 1px;
   border-radius: 0px;
 }
 
-/* Style table data */
+
 .table td {
   font-family: "Lato", serif;
   font-weight: 500;
@@ -85,7 +85,7 @@ h2{
   color: grey;
 }
 
-/* General styling for all input-like elements */
+
 .task-input,
 .date-picker {
   border: none;
@@ -99,7 +99,7 @@ h2{
   color: grey;
 }
 
-/* Ensure focus does not add extra styles */
+
 .task-input:focus,
 .date-picker:focus {
   outline: none;
@@ -111,7 +111,7 @@ h2{
   color: grey;
 }
 
-/* Dropdown specific styling */
+
 .status-dropdown .dropdown-toggle {
   background: transparent !important;
   border: none !important;
@@ -123,20 +123,20 @@ h2{
   cursor: pointer;
 }
 
-/* Ensure the input field of the date picker uses Lato */
+
 .date-picker-input {
   font-family: "Lato", sans-serif !important;
   font-weight: 500;
   font-size: 1pc;
 }
 
-/* Target the calendar dropdown */
+
 .react-datepicker {
   font-family: "Lato", sans-serif !important;
   font-size: 1pc;
 }
 
-/* Ensure date selection inside the calendar uses Lato */
+
 .react-datepicker__day,
 .react-datepicker__header,
 .react-datepicker__month {
@@ -150,16 +150,16 @@ h2{
   color: inherit !important;
   box-shadow: none !important;
   padding: 5px;
-  font-size: 1pc; /* Smaller font */
+  font-size: 1pc;
   
 }
 
 .transparent-dropdown .dropdown-menu {
   background: white !important;
   border: none !important;
-  padding: 5px; /* Reduced padding */
-  width: 140px !important; /* Set a smaller width */
-  border-radius: 6px; /* Slightly rounded corners */
+  padding: 5px;
+  width: 140px !important;
+  border-radius: 6px;
   
 }
 
@@ -169,7 +169,7 @@ h2{
   filter: brightness(1.2);
 }
 
-/* Apply font to dropdown */
+
 .transparent-dropdown .dropdown-toggle,
 .transparent-dropdown .dropdown-menu,
 .transparent-dropdown .dropdown-item {
@@ -178,7 +178,7 @@ h2{
 
 }
 
-/* Ensure buttons stand out */
+
 .btn-primary {
   background-color: #5E1B89;
   border: none;
