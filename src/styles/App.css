@@ -7,6 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Lato", serif !important;
 }
 
 /* Container with padding for a clean layout */
@@ -22,6 +23,18 @@ body {
   background: transparent;
 }
 
+/* Style the table headers */
+.table th {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+}
+
+/* Style table data */
+.table td {
+  font-family: "Lato", serif;
+  font-weight: 500;
+}
+
 /* General styling for all input-like elements */
 .task-input,
 .date-picker {
@@ -30,6 +43,8 @@ body {
   color: inherit;
   width: 100%;
   padding: 5px;
+  font-family: "Lato", serif;
+  font-weight: 500;
 }
 
 /* Ensure focus does not add extra styles */
@@ -38,6 +53,8 @@ body {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
+  font-family: "Lato", serif;
+  font-weight: 500;
 }
 
 /* Dropdown specific styling */
@@ -81,6 +98,7 @@ body {
   transition: background 0.3s ease-in-out;
 }
 
+
 .status-not-started { background-color: blue !important; }
 .status-blocked { background-color: red !important; }
 .status-in-progress { background-color: yellow !important; color: black !important; }
@@ -88,6 +106,13 @@ body {
 
 .transparent-dropdown .dropdown-item:hover {
   filter: brightness(1.2);
+}
+
+/* Apply font to dropdown */
+.transparent-dropdown .dropdown-toggle,
+.transparent-dropdown .dropdown-menu,
+.transparent-dropdown .dropdown-item {
+  font-family: "Lato", serif !important;
 }
 
 /* Ensure buttons stand out */
