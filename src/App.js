@@ -19,16 +19,14 @@ function App() {
     localStorage.setItem("lastId", JSON.stringify(lastId));
   }, [data, lastId]);
 
-  const updateStatus = (index, newStatus) => {
+  const updateTaskField = (index, field, value) => {
     const updatedData = [...data];
-    updatedData[index].status = newStatus;
+    updatedData[index][field] = value;
     setData(updatedData);
   };
 
-  const updateDate = (index, newDate) => {
-    const updatedData = [...data];
-    updatedData[index].date = newDate;
-    setData(updatedData);
+  const updateStatus = (index, newStatus) => {
+    updateTaskField(index, "status", newStatus);
   };
 
   const addTask = () => {
@@ -56,7 +54,14 @@ function App() {
         <tbody>
           {data.map((task, index) => (
             <tr key={task.id}>
-              <td>{task.task}</td>
+              <td>
+                <input
+                  type="text"
+                  value={task.task}
+                  onChange={(e) => updateTaskField(index, "task", e.target.value)}
+                  className="form-control"
+                />
+              </td>
               <td>
                 <CustomDropdown
                   id={task.id}
@@ -64,12 +69,19 @@ function App() {
                   onChange={(newStatus) => updateStatus(index, newStatus)}
                 />
               </td>
-              <td>{task.owner}</td>
+              <td>
+                <input
+                  type="text"
+                  value={task.owner}
+                  onChange={(e) => updateTaskField(index, "owner", e.target.value)}
+                  className="form-control"
+                />
+              </td>
               <td>
                 <input
                   type="date"
                   value={task.date}
-                  onChange={(e) => updateDate(index, e.target.value)}
+                  onChange={(e) => updateTaskField(index, "date", e.target.value)}
                   className="form-control"
                 />
               </td>
