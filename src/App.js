@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import CustomDropdown from "./components/dropdown.js";
 import React, { useEffect, useState } from "react";
 
@@ -40,64 +41,67 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
-      <table className="table table-bordered table-striped">
-        <thead className="table-dark">
-          <tr>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Owner</th>
-            <th>Due Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((task, index) => (
-            <tr key={task.id}>
-              <td>
-                <input
-                  type="text"
-                  value={task.task}
-                  onChange={(e) => updateTaskField(index, "task", e.target.value)}
-                  className="form-control task-input"
-                />
-              </td>
-              <td>
-              <CustomDropdown
-                id={task.id}
-                initialStatus={task.status}
-                onChange={(newStatus) => updateStatus(index, newStatus)}
-                className="status-dropdown"
-              />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={task.owner}
-                  onChange={(e) => updateTaskField(index, "owner", e.target.value)}
-                  className="form-control task-input"
-                />
-              </td>
-              <td>
-              <input
-                type="date"
-                value={task.date}
-                onChange={(e) => updateTaskField(index, "date", e.target.value)}
-                className="form-control date-picker date-picker-input"
-              />
-              </td>
-              <td>
-                <button onClick={() => deleteTask(index)} className="btn btn-danger">
-                  Delete
-                </button>
-              </td>
+    <div>
+      <h1 className="text-center mt-0">To-Do List</h1>
+      <div className="container mt-4">
+        <table className="table table-bordered">
+          <thead className="table-dark">
+            <tr>
+              <th>Task</th>
+              <th>Status</th>
+              <th>Owner</th>
+              <th>Due Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={addTask} className="btn btn-primary mt-2">
-        Add Task
-      </button>
+          </thead>
+          <tbody>
+            {data.map((task, index) => (
+              <tr key={task.id}>
+                <td>
+                  <input
+                    type="text"
+                    value={task.task}
+                    onChange={(e) => updateTaskField(index, "task", e.target.value)}
+                    className="form-control task-input"
+                  />
+                </td>
+                <td>
+                <CustomDropdown
+                  id={task.id}
+                  initialStatus={task.status}
+                  onChange={(newStatus) => updateStatus(index, newStatus)}
+                  className="status-dropdown"
+                />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={task.owner}
+                    onChange={(e) => updateTaskField(index, "owner", e.target.value)}
+                    className="form-control task-input"
+                  />
+                </td>
+                <td>
+                <input
+                  type="date"
+                  value={task.date}
+                  onChange={(e) => updateTaskField(index, "date", e.target.value)}
+                  className="form-control date-picker date-picker-input"
+                />
+                </td>
+                <td>
+                  <button onClick={() => deleteTask(index)} className="btn btn-danger">
+                    <i className="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={addTask} className="btn btn-primary mt-2">
+          + Add Task
+        </button>
+      </div>
     </div>
   );
 }

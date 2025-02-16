@@ -10,6 +10,13 @@ body {
   font-family: "Lato", serif !important;
 }
 
+h1{
+  font-family: "DM Sans", sans-serif !important;
+  color: white;
+  font-weight: bold;
+  font-size: 4pc;
+}
+
 /* Container with padding for a clean layout */
 .container {
   background: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
@@ -18,9 +25,19 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the table */
 .table {
-  background: transparent;
+  background: transparent !important;
+  width: 100%;
+  min-width: 600px; /* Adjust as needed */
+  border-radius: 8px;
+  table-layout: fixed; /* Ensures uniform column sizes */
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 6pc;
+  white-space: nowrap;
+  text-align: center;
 }
 
 /* Style the table headers */
@@ -28,6 +45,10 @@ body {
   font-family: "Roboto Slab", serif;
   font-weight: 700;
   font-size: 1.25pc;
+  background: #9d71bc;
+  border-collapse: separate; /* Needed for row-only borders */
+  border-spacing: 0px 1px; /* Space between rows */
+  border-radius: 0px;
 }
 
 /* Style table data */
@@ -35,6 +56,8 @@ body {
   font-family: "Lato", serif;
   font-weight: 500;
   font-size: 1pc;
+  background-color: white;
+  color: grey;
 }
 
 /* General styling for all input-like elements */
@@ -48,6 +71,7 @@ body {
   font-family: "Lato", serif;
   font-weight: 500;
   font-size: 1pc;
+  color: grey;
 }
 
 /* Ensure focus does not add extra styles */
@@ -59,6 +83,7 @@ body {
   font-family: "Lato", serif;
   font-weight: 500;
   font-size: 1.05pc;
+  color: grey;
 }
 
 /* Dropdown specific styling */
@@ -101,34 +126,19 @@ body {
   box-shadow: none !important;
   padding: 5px;
   font-size: 1pc; /* Smaller font */
+  
 }
 
 .transparent-dropdown .dropdown-menu {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: white !important;
   border: none !important;
-  backdrop-filter: blur(8px); /* Optional: Adds a blur effect */
   padding: 5px; /* Reduced padding */
   width: 140px !important; /* Set a smaller width */
   border-radius: 6px; /* Slightly rounded corners */
   
 }
 
-.transparent-dropdown .dropdown-item {
-  color: white !important;
-  font-weight: 500;
-  text-align: center;
-  border-radius: 15px;
-  margin: 3px 0;
-  padding: 6px 10px; /* Smaller padding */
-  font-size: 1pc; /* Smaller font size */
-  transition: background 0.3s ease-in-out;
-}
 
-
-.status-not-started { background-color: blue !important; }
-.status-blocked { background-color: red !important; }
-.status-in-progress { background-color: yellow !important; color: black !important; }
-.status-completed { background-color: green !important; }
 
 .transparent-dropdown .dropdown-item:hover {
   filter: brightness(1.2);
@@ -139,6 +149,8 @@ body {
 .transparent-dropdown .dropdown-menu,
 .transparent-dropdown .dropdown-item {
   font-family: "Lato", serif !important;
+  color: grey;
+
 }
 
 /* Ensure buttons stand out */
@@ -146,12 +158,15 @@ body {
   background-color: #5E1B89;
   border: none;
   font-size: 1pc;
-
 }
 
 .btn-primary:hover {
   background-color: #5E1B89;
   font-size: 1pc;
+}
+
+.btn-primary:active {
+  background-color: #5E1B89 !important;
 }
 
 .btn-danger {
@@ -163,4 +178,8 @@ body {
 .btn-danger:hover {
   background-color: #f4512c;
   font-size: 1pc;
+}
+
+.btn-danger:active {
+  background-color: #f4512c !important;
 }
