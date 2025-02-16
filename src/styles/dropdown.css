@@ -7,4 +7,5 @@
 .custom-dropdown .dropdown-menu .dropdown-item {
     font-family: "Lato", sans-serif !important;
     font-weight: 500;
+    background-color: transparent;
   }

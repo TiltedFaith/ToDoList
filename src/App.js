@@ -42,8 +42,14 @@ function App() {
 
   return (
     <div>
-      <h1 className="text-center mt-0">To-Do List</h1>
+      <div className="d-flex align-items-center justify-content-center">
+        <img src="/assets/logo.png" alt="LexMeet Logo" className="me-3 mb-1" style={{
+          height: "3.4pc", filter: "brightness(0) invert(1)",
+        }} />
+        <h2 className="mt-2">LexMeet</h2>
+      </div>      
       <div className="container mt-4">
+      <h1 className="text-center mb-3">To-Do List</h1>
         <table className="table table-bordered">
           <thead className="table-dark">
             <tr>
