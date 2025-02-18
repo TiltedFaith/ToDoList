@@ -5,6 +5,7 @@ import CustomDropdown from "./components/dropdown.js";
 import ConfirmationModal from "./components/ConfirmationModal";
 import React, { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
+import PopUpModal from "./components/PopUpModal.js";
 
 function App() {
   const defaultTasks = [];
@@ -17,8 +18,9 @@ function App() {
   const [data, setData] = useState(getInitialData().tasks);
   const [lastId, setLastId] = useState(getInitialData().lastId);
   const [activeTab, setActiveTab] = useState("All");
-  const [showModal, setShowModal] = useState(false);
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);  // For confirmation modal
+  const [showPopUpModal, setShowPopUpModal] = useState(false);   // For the input validation modal
+  
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("lastId", JSON.stringify(lastId));
@@ -32,7 +34,16 @@ function App() {
 
   const toggleEdit = (index) => {
     const updatedData = [...data];
-    updatedData[index].editable = !updatedData[index].editable;
+    
+    const task = updatedData[index];
+  
+    // Check if all required fields are filled
+    if (!task.task || !task.owner || !task.date || !task.time) {
+      setShowPopUpModal(true);
+      return; // Prevent toggle if fields are empty
+    }
+  
+    task.editable = !task.editable; // Toggle edit mode only if validation passes
     setData(updatedData);
   };
 
@@ -59,7 +70,7 @@ function App() {
   };
 
   const deleteAllTasks = () => {
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
 
   const confirmDeleteAll = () => {
@@ -67,7 +78,7 @@ function App() {
     setLastId(3);
     localStorage.removeItem("data");
     localStorage.removeItem("lastId");
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
   const filteredTasks = activeTab === "All" ? data : data.filter((task) => task.status === activeTab);
@@ -164,7 +175,7 @@ function App() {
                   {task.status !== "Completed" && (
                     <button
                       onClick={() => toggleEdit(index)}
-                      className={`btn ${task.editable ? "btn-success mx-1" : "btn-warning mx-1"}`}
+                      className={`btn ${task.editable ? "btn-success mx-1 btn-complete" : "btn-warning mx-1 btn-edit"}`}
                     >
                       <i className={`bi ${task.editable ? "bi-check-lg" : "bi-pencil"}`}></i>
                     </button>
@@ -183,21 +194,28 @@ function App() {
             + Add Task
           </button>
           <div className="ms-auto">
-          <button onClick={completeAllTasks} className="btn btn-success mx-2">
-            Complete All
+          <button onClick={completeAllTasks} className="btn complete-all-btn btn-success mx-2">
+          <i className="bi bi-check-circle"></i> Complete All
           </button>
-          <button onClick={deleteAllTasks} className="btn btn-danger mx-2">
-            Delete All
+          <button onClick={deleteAllTasks} className="btn delete-all-btn btn-danger mx-2">
+            <i className="bi bi-trash"></i> Delete All
           </button></div>
         </div>
       </div>
 
       <ConfirmationModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
         onConfirm={confirmDeleteAll}
         title="Delete All Tasks"
         message="Are you sure you want to delete all tasks? This action cannot be undone."
+      />
+
+      <PopUpModal
+        show={showPopUpModal}
+        onHide={() => setShowPopUpModal(false)}
+        title="Empty inputs"
+        message="Please fill in all fields before saving the task."
       />
     </div>
   );

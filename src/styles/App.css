@@ -263,3 +263,31 @@ input.task-input:disabled {
 .btn-danger:active {
   background-color: #f4512c !important;
 }
+
+.complete-all-btn,
+.complete-all-btn:hover,
+.complete-all-btn:active {
+  background-color: #5E1B89 !important; 
+  color: white;
+}
+
+.delete-all-btn,
+.delete-all-btn:hover, 
+.delete-all-btn:active {
+  background-color: #f4512c !important;
+  color: white;
+}
+
+.btn-complete,
+.btn-complete:hover,
+.btn-complete:active {
+  background-color: #5E1B89 !important;
+  color: white;
+}
+
+.btn-edit,
+.btn-edit:hover,
+.btn-edit:active {
+  background-color: #5E1B89 !important;
+  color: white;
+}
