@@ -11,20 +11,20 @@ body {
 }
 
 .nav-tabs .nav-link {
-  color: grey; /* Default text color */
+  color: grey;
   font-weight: bold;
   border: none;
   padding: 8px 15px;
 }
 
 .nav-tabs .nav-link.active {
-  background-color: #5E1B89 !important; /* Change to your preferred active tab color */
+  background-color: #5E1B89 !important;
   color: white !important;
   border-radius: 8px 8px 0 0;
 }
 
 .nav-tabs .nav-link:hover {
-  color: #5E1B89 !important; /* Change to your preferred hover color */
+  color: #5E1B89 !important;
   background-color: rgba(157, 113, 188, 0.1);
   border-radius: 8px 8px 0 0;
 }
@@ -123,17 +123,17 @@ h2{
   color: grey;
 }
 
-/* Customize disabled inputs */
+
 input:disabled,
 input.task-input:disabled {
-  background-color: #f0f0f0; /* Light grey background */
-  border-color: black; /* Lighter border color */
-  cursor: not-allowed; /* Change cursor to indicate disabled state */
+  background-color: #f0f0f0;
+  border-color: black;
+  cursor: not-allowed;
 }
 
 .completed-task {
-  text-decoration: line-through; /* Add a strikethrough */
-  color: #888; /* Optional: Dim the text color to make it appear "completed" */
+  text-decoration: line-through;
+  color: #888;
 }
 
 
@@ -291,3 +291,4 @@ input.task-input:disabled {
   background-color: #5E1B89 !important;
   color: white;
 }
+

@@ -18,9 +18,13 @@ function App() {
   const [data, setData] = useState(getInitialData().tasks);
   const [lastId, setLastId] = useState(getInitialData().lastId);
   const [activeTab, setActiveTab] = useState("All");
-  const [showDeleteModal, setShowDeleteModal] = useState(false);  // For confirmation modal
-  const [showPopUpModal, setShowPopUpModal] = useState(false);   // For the input validation modal
-  
+  const [showDeleteModal, setShowDeleteModal] = useState(false);  
+  const [showPopUpModal, setShowPopUpModal] = useState(false);   
+  const [showDateErrorModal, setShowDateErrorModal] = useState(false);
+  const [showTimeErrorModal, setShowTimeErrorModal] = useState(false);
+
+
+
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
     localStorage.setItem("lastId", JSON.stringify(lastId));
@@ -34,23 +38,56 @@ function App() {
 
   const toggleEdit = (index) => {
     const updatedData = [...data];
-    
     const task = updatedData[index];
-  
-    // Check if all required fields are filled
+    
     if (!task.task || !task.owner || !task.date || !task.time) {
       setShowPopUpModal(true);
-      return; // Prevent toggle if fields are empty
+      return; 
     }
   
-    task.editable = !task.editable; // Toggle edit mode only if validation passes
+    const selectedDate = new Date(task.date);
+    const currentDate = new Date();
+    
+    
+    selectedDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+  
+    
+    if (selectedDate < currentDate) {
+      setShowDateErrorModal(true);
+      return; 
+    }
+    
+    
+    const selectedTime = new Date(`${task.date}T${task.time}`);
+    const currentTime = new Date();
+  
+    if (selectedDate.getTime() === currentDate.getTime() && selectedTime < currentTime) {
+      setShowTimeErrorModal(true);
+      return; 
+    }
+  
+    task.editable = !task.editable; 
     setData(updatedData);
   };
+  
 
   const updateStatus = (index, newStatus) => {
-    updateTaskField(index, "status", newStatus);
+    console.log("Updating status for task", index, "to", newStatus);
+    const updatedData = [...data];
+    const task = updatedData[index];
+  
+    if (task.editable && newStatus === "Completed") {
+      
+      console.log("Completed status is not allowed while editing");
+      return;
+    }
+  
+    task.status = newStatus;
+    setData(updatedData);
   };
-
+  
+  
   const addTask = () => {
     const newId = lastId + 1;
     setData([
@@ -65,9 +102,17 @@ function App() {
   };
 
   const completeAllTasks = () => {
+    
+    const isAnyTaskEditable = data.some(task => task.editable);
+    
+    if (isAnyTaskEditable) {
+      return; 
+    }
+  
     const updatedData = data.map((task) => ({ ...task, status: "Completed" }));
     setData(updatedData);
   };
+  
 
   const deleteAllTasks = () => {
     setShowDeleteModal(true);
@@ -135,13 +180,15 @@ function App() {
                   />
                 </td>
                 <td>
-                  <CustomDropdown
-                    key={task.id + task.status}
-                    id={task.id}
-                    initialStatus={task.status}
-                    onChange={(newStatus) => updateStatus(index, newStatus)}
-                    className="status-dropdown"
-                  />
+                <CustomDropdown
+                  key={task.id + task.status}
+                  id={task.id}
+                  initialStatus={task.status}
+                  onChange={(newStatus) => updateStatus(index, newStatus)}
+                  editable={task.editable} 
+                  className="status-dropdown"
+                />
+
                 </td>
                 <td>
                   <input
@@ -194,9 +241,14 @@ function App() {
             + Add Task
           </button>
           <div className="ms-auto">
-          <button onClick={completeAllTasks} className="btn complete-all-btn btn-success mx-2">
-          <i className="bi bi-check-circle"></i> Complete All
+          <button
+            onClick={completeAllTasks}
+            className="btn complete-all-btn btn-success mx-2"
+            disabled={data.some(task => task.editable)}
+          >
+            <i className="bi bi-check-circle"></i> Complete All
           </button>
+
           <button onClick={deleteAllTasks} className="btn delete-all-btn btn-danger mx-2">
             <i className="bi bi-trash"></i> Delete All
           </button></div>
@@ -217,6 +269,22 @@ function App() {
         title="Empty inputs"
         message="Please fill in all fields before saving the task."
       />
+
+      <PopUpModal
+        show={showDateErrorModal}
+        onHide={() => setShowDateErrorModal(false)}
+        title="Invalid Date"
+        message="Please input a valid date"
+      />
+
+      <PopUpModal
+        show={showTimeErrorModal}
+        onHide={() => setShowTimeErrorModal(false)}
+        title="Invalid Time"
+        message="Please input a valid time"
+      />
+
+      
     </div>
   );
 }

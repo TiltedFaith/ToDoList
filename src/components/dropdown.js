@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../styles/dropdown.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import PopUpModal from "./PopUpModal.js";
 
-const CustomDropdown = ({ id, initialStatus, onChange }) => {
+const CustomDropdown = ({ id, initialStatus, onChange, editable }) => {
   const [selectedOption, setSelectedOption] = useState(initialStatus || "Not Started");
+  const [showStatusErrorModal, setShowStatusErrorModal] = useState(false);
 
-  // Sync with external updates (like "Complete All Tasks")
+  
   useEffect(() => {
     setSelectedOption(initialStatus); 
-  }, [initialStatus]);  // Re-run effect when `initialStatus` changes
+  }, [initialStatus]);
 
   const handleSelect = (status) => {
+    
+    if (editable && status === "Completed") {
+      console.log("Not allowed, changing to Not Started");
+      setShowStatusErrorModal(true);
+      setSelectedOption("Not Started"); 
+      onChange("Not Started"); 
+      return;
+    }
+
     setSelectedOption(status);
     localStorage.setItem(`status_${id}`, status);
     onChange(status);
@@ -43,8 +54,16 @@ const CustomDropdown = ({ id, initialStatus, onChange }) => {
           </NavDropdown.Item>
         ))}
       </NavDropdown>
+      <PopUpModal
+        show={showStatusErrorModal}
+        onHide={() => setShowStatusErrorModal(false)}
+        title="Invalid Status"
+        message="Completed status is not allowed while editing"
+      />
     </div>
+    
   );
 };
+
 
 export default CustomDropdown;
