@@ -92,7 +92,7 @@ h2{
 
 .table th:nth-child(5),
 .table td:nth-child(5) {
-  width: 7pc;
+  width: 5.5pc;
   white-space: nowrap;
 }
 
@@ -125,7 +125,8 @@ h2{
 
 
 .task-input,
-.date-picker {
+.date-picker,
+.time-picker {
   border: none;
   background: transparent;
   color: inherit;
@@ -139,7 +140,8 @@ h2{
 
 
 .task-input:focus,
-.date-picker:focus {
+.date-picker:focus,
+.time-picker:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
@@ -157,12 +159,14 @@ h2{
   box-shadow: none !important;
 }
 
-.date-picker {
+.date-picker,
+.time-picker {
   cursor: pointer;
 }
 
 
-.date-picker-input {
+.date-picker-input,
+.time-picker-input {  
   font-family: "Lato", sans-serif !important;
   font-weight: 500;
   font-size: 1pc;
