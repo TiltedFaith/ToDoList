@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import CustomDropdown from "./components/dropdown.js";
+import ConfirmationModal from "./components/ConfirmationModal";
 import React, { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 
@@ -15,7 +16,8 @@ function App() {
 
   const [data, setData] = useState(getInitialData().tasks);
   const [lastId, setLastId] = useState(getInitialData().lastId);
-  const [activeTab, setActiveTab] = useState("All"); // Default tab
+  const [activeTab, setActiveTab] = useState("All");
+  const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
@@ -49,13 +51,15 @@ function App() {
   
 
   const deleteAllTasks = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete all tasks?");
-    if (confirmDelete) {
-      setData([]);  // Clear all tasks
-      setLastId(3);  // Reset the ID counter (or adjust as needed)
-      localStorage.removeItem("data");  // Clear from localStorage
-      localStorage.removeItem("lastId");
-    }
+    setShowModal(true); // Show confirmation modal
+  };
+
+  const confirmDeleteAll = () => {
+    setData([]);
+    setLastId(3);
+    localStorage.removeItem("data");
+    localStorage.removeItem("lastId");
+    setShowModal(false);
   };
   
 
@@ -156,13 +160,22 @@ function App() {
             + Add Task
           </button>
           <button onClick={completeAllTasks} className="btn btn-success">
-            ✅ Complete All
+            Complete All
           </button>
           <button onClick={deleteAllTasks} className="btn btn-danger">
-            🗑 Delete All
+            Delete All
           </button>
         </div>
       </div>
+
+      // TODO: Adjust CSS to match branding
+      <ConfirmationModal 
+        show={showModal} 
+        onHide={() => setShowModal(false)} 
+        onConfirm={confirmDeleteAll} 
+        title="Delete All Tasks"
+        message="Are you sure you want to delete all tasks? This action cannot be undone."
+      />
     </div>
   );
 }
