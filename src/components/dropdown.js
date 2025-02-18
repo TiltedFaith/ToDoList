@@ -6,17 +6,14 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const CustomDropdown = ({ id, initialStatus, onChange }) => {
   const [selectedOption, setSelectedOption] = useState(initialStatus || "Not Started");
 
+  // Sync with external updates (like "Complete All Tasks")
   useEffect(() => {
-    
-    const savedStatus = localStorage.getItem(`status_${id}`);
-    if (savedStatus) {
-      setSelectedOption(savedStatus);
-    }
-  }, [id]);
+    setSelectedOption(initialStatus); 
+  }, [initialStatus]);  // Re-run effect when `initialStatus` changes
 
   const handleSelect = (status) => {
     setSelectedOption(status);
-    localStorage.setItem(`status_${id}`, status); 
+    localStorage.setItem(`status_${id}`, status);
     onChange(status);
   };
 
@@ -40,18 +37,11 @@ const CustomDropdown = ({ id, initialStatus, onChange }) => {
         menuVariant="light"
         className="transparent-dropdown"
       >
-        <NavDropdown.Item onClick={() => handleSelect("Not Started")}>
-          <i className="bi bi-hourglass me-2"></i> Not Started
-        </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => handleSelect("Blocked")}>
-          <i className="bi bi-slash-circle me-2"></i> Blocked
-        </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => handleSelect("In Progress")}>
-          <i className="bi bi-arrow-repeat me-2"></i> In Progress
-        </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => handleSelect("Completed")}>
-          <i className="bi bi-check-circle me-2"></i> Completed
-        </NavDropdown.Item>
+        {Object.keys(statusIcons).map((status) => (
+          <NavDropdown.Item key={status} onClick={() => handleSelect(status)}>
+            <i className={`bi ${statusIcons[status]} me-2`}></i> {status}
+          </NavDropdown.Item>
+        ))}
       </NavDropdown>
     </div>
   );

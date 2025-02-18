@@ -34,13 +34,30 @@ function App() {
 
   const addTask = () => {
     const newId = lastId + 1;
-    setData([...data, { id: newId, task: "", status: "Not Started", owner: "", date: "" }]);
+    setData([...data, { id: newId, task: "", status: "Not Started", owner: "", date: "", time: "" }]);
     setLastId(newId);
   };
 
   const deleteTask = (index) => {
     setData(data.filter((_, i) => i !== index));
   };
+
+  const completeAllTasks = () => {
+    const updatedData = data.map((task) => ({ ...task, status: "Completed" }));
+    setData(updatedData);
+  };
+  
+
+  const deleteAllTasks = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete all tasks?");
+    if (confirmDelete) {
+      setData([]);  // Clear all tasks
+      setLastId(3);  // Reset the ID counter (or adjust as needed)
+      localStorage.removeItem("data");  // Clear from localStorage
+      localStorage.removeItem("lastId");
+    }
+  };
+  
 
   const filteredTasks = activeTab === "All" ? data : data.filter(task => task.status === activeTab);
 
@@ -76,6 +93,7 @@ function App() {
               <th>Status</th>
               <th>Owner</th>
               <th>Due Date</th>
+              <th>Due Time</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -91,12 +109,13 @@ function App() {
                   />
                 </td>
                 <td>
-                  <CustomDropdown
-                    id={task.id}
-                    initialStatus={task.status}
-                    onChange={(newStatus) => updateStatus(index, newStatus)}
-                    className="status-dropdown"
-                  />
+                <CustomDropdown
+                  key={task.id + task.status} // Forces re-render when status changes
+                  id={task.id}
+                  initialStatus={task.status}
+                  onChange={(newStatus) => updateStatus(index, newStatus)}
+                  className="status-dropdown"
+                />
                 </td>
                 <td>
                   <input
@@ -115,6 +134,14 @@ function App() {
                   />
                 </td>
                 <td>
+                  <input
+                    type="time"
+                    value={task.time}
+                    onChange={(e) => updateTaskField(index, "time", e.target.value)}
+                    className="form-control time-picker"
+                  />
+                </td>
+                <td>
                   <button onClick={() => deleteTask(index)} className="btn btn-danger">
                     <i className="bi bi-trash"></i>
                   </button>
@@ -124,9 +151,17 @@ function App() {
           </tbody>
         </table>
 
-        <button onClick={addTask} className="btn btn-primary mt-2">
-          + Add Task
-        </button>
+        <div className="d-flex gap-2 mt-2">
+          <button onClick={addTask} className="btn btn-primary">
+            + Add Task
+          </button>
+          <button onClick={completeAllTasks} className="btn btn-success">
+            ✅ Complete All
+          </button>
+          <button onClick={deleteAllTasks} className="btn btn-danger">
+            🗑 Delete All
+          </button>
+        </div>
       </div>
     </div>
   );
