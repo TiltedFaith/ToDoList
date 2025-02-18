@@ -123,6 +123,19 @@ h2{
   color: grey;
 }
 
+/* Customize disabled inputs */
+input:disabled,
+input.task-input:disabled {
+  background-color: #f0f0f0; /* Light grey background */
+  border-color: black; /* Lighter border color */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+.completed-task {
+  text-decoration: line-through; /* Add a strikethrough */
+  color: #888; /* Optional: Dim the text color to make it appear "completed" */
+}
+
 
 .task-input,
 .date-picker,

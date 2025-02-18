@@ -119,7 +119,7 @@ function App() {
                     type="text"
                     value={task.task}
                     onChange={(e) => updateTaskField(index, "task", e.target.value)}
-                    className="form-control task-input"
+                    className={`form-control task-input ${task.status === "Completed" ? "completed-task" : ""}`}
                     disabled={!task.editable}
                   />
                 </td>
@@ -160,12 +160,17 @@ function App() {
                   />
                 </td>
                 <td className="text-center">
+
+                  {task.status !== "Completed" && (
+                    <button
+                      onClick={() => toggleEdit(index)}
+                      className={`btn ${task.editable ? "btn-success mx-1" : "btn-warning mx-1"}`}
+                    >
+                      <i className={`bi ${task.editable ? "bi-check-lg" : "bi-pencil"}`}></i>
+                    </button>
+                  )}
                   <button onClick={() => deleteTask(index)} className="btn btn-danger mx-1">
                     <i className="bi bi-trash"></i>
-                  </button>
-
-                  <button onClick={() => toggleEdit(index)} className={`btn ${task.editable ? "btn-success mx-1" : "btn-warning mx-1"}`}>
-                    <i className={`bi ${task.editable ? "bi-check-lg" : "bi-pencil"}`}></i>
                   </button>
                 </td>
               </tr>
