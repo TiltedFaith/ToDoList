@@ -51,7 +51,7 @@ function App() {
   
 
   const deleteAllTasks = () => {
-    setShowModal(true); // Show confirmation modal
+    setShowModal(true);
   };
 
   const confirmDeleteAll = () => {
@@ -66,6 +66,7 @@ function App() {
   const filteredTasks = activeTab === "All" ? data : data.filter(task => task.status === activeTab);
 
   return (
+    // TODO: Adjust confirmation CSS to match branding
     <div>
       <div className="d-flex align-items-center justify-content-center">
         <img src="/assets/logo.png" alt="LexMeet Logo" className="me-3 mb-1" style={{
@@ -168,7 +169,6 @@ function App() {
         </div>
       </div>
 
-      // TODO: Adjust CSS to match branding
       <ConfirmationModal 
         show={showModal} 
         onHide={() => setShowModal(false)} 
