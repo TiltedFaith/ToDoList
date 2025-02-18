@@ -1,0 +1,48 @@
+.default-modal-title {
+    font-family: "Lato", serif;
+    font-weight: 500;
+    font-size: 1pc; 
+    background-color: #5E1B89; 
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+ 
+  .default-modal-body {
+    font-family: "Lato", serif;
+    font-weight: 500;
+    background-color: white; 
+    color: #343a40; 
+    padding: 20px;
+    font-size: 1rem;
+  }
+  
+ 
+  .default-modal-footer {
+    background-color: white; 
+    border-top: 1px solid #ddd; 
+  }
+  
+ 
+  .default-modal-btn {
+    background-color: #5E1B89 !important; 
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .default-modal-btn:hover {
+    background-color: #5E1B89 !important; 
+  }
+  
+ 
+  .custom-modal.modal-lg .modal-content {
+    border-radius: 15px; 
+  }
+  
+  .custom-modal.modal-sm .modal-content {
+    border-radius: 5px; 
+  }
