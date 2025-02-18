@@ -22,8 +22,8 @@ function App() {
   const [showPopUpModal, setShowPopUpModal] = useState(false);   
   const [showDateErrorModal, setShowDateErrorModal] = useState(false);
   const [showTimeErrorModal, setShowTimeErrorModal] = useState(false);
-
-
+  const [showDeleteOneModal, setShowDeleteOneModal] = useState(false);
+  const [taskToDeleteIndex, setTaskToDeleteIndex] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
@@ -98,7 +98,16 @@ function App() {
   };
 
   const deleteTask = (index) => {
-    setData(data.filter((_, i) => i !== index));
+    setTaskToDeleteIndex(index);  // Set the task index to be deleted
+    setShowDeleteOneModal(true);   // Show the delete confirmation modal
+  };
+
+  const confirmDeleteOne = () => { 
+    if (taskToDeleteIndex !== null) {
+      setData(data.filter((_, i) => i !== taskToDeleteIndex)); // Delete the task from data
+      setTaskToDeleteIndex(null); // Reset task index
+      setShowDeleteOneModal(false); // Close the modal
+    }
   };
 
   const completeAllTasks = () => {
@@ -261,6 +270,14 @@ function App() {
         onConfirm={confirmDeleteAll}
         title="Delete All Tasks"
         message="Are you sure you want to delete all tasks? This action cannot be undone."
+      />
+
+      <ConfirmationModal
+        show={showDeleteOneModal}
+        onHide={() => setShowDeleteOneModal(false)}
+        onConfirm={confirmDeleteOne}
+        title="Delete Task"
+        message="Are you sure you want to delete this task? This action cannot be undone."
       />
 
       <PopUpModal
